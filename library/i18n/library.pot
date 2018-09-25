@@ -1,0 +1,451 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* library
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 11.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-09-25 11:50+0000\n"
+"PO-Revision-Date: 2018-09-25 11:50+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: library
+#: model:ir.model.fields,field_description:library.field_product_product_acquisition_price
+msgid "Acquisition Price"
+msgstr ""
+
+#. module: library
+#: model:ir.model.fields,field_description:library.field_product_product_acquisition_year
+msgid "Acquisition Year"
+msgstr ""
+
+#. module: library
+#: model:ir.ui.view,arch_db:library.customer_view_form_id
+msgid "Address"
+msgstr ""
+
+#. module: library
+#: model:ir.model.fields,field_description:library.field_library_payment_amount
+msgid "Amount"
+msgstr ""
+
+#. module: library
+#: model:ir.model.fields,field_description:library.field_res_partner_amount_owed
+#: model:ir.model.fields,field_description:library.field_res_users_amount_owed
+msgid "Amount owed"
+msgstr ""
+
+#. module: library
+#: model:ir.actions.act_window,name:library.action_author
+#: model:ir.model.fields,field_description:library.field_product_product_author_ids
+#: model:ir.ui.menu,name:library.menu_author
+msgid "Authors"
+msgstr ""
+
+#. module: library
+#: selection:product.product,book_state:0
+msgid "Available"
+msgstr ""
+
+#. module: library
+#: model:ir.actions.act_window,name:library.action_available_books
+msgid "Available Books"
+msgstr ""
+
+#. module: library
+#. openerp-web
+#: code:addons/library/static/src/xml/dashboard.xml:19
+#: model:ir.actions.act_window,name:library.action_bad_customer
+#, python-format
+msgid "Bad Customers"
+msgstr ""
+
+#. module: library
+#: selection:library.price,type:0
+msgid "Based on time"
+msgstr ""
+
+#. module: library
+#: model:ir.model.fields,field_description:library.field_res_partner_birthdate
+#: model:ir.model.fields,field_description:library.field_res_users_birthdate
+msgid "Birthdate"
+msgstr ""
+
+#. module: library
+#: model:ir.model.fields,field_description:library.field_library_rental_book_id
+msgid "Book"
+msgstr ""
+
+#. module: library
+#: model:ir.model.fields,field_description:library.field_product_product_book_state
+msgid "Book State"
+msgstr ""
+
+#. module: library
+#: model:ir.model,name:library.model_library_rental
+msgid "Book rental"
+msgstr ""
+
+#. module: library
+#: model:ir.actions.act_window,name:library.action_book
+#: model:ir.model.fields,field_description:library.field_res_partner_book_ids
+#: model:ir.model.fields,field_description:library.field_res_users_book_ids
+#: model:ir.ui.menu,name:library.menu_book
+#: model:ir.ui.menu,name:library.menu_book_top
+#: model:ir.ui.view,arch_db:library.author_view_form_id
+msgid "Books"
+msgstr ""
+
+#. module: library
+#: model:ir.ui.view,arch_db:library.customer_view_form_id
+msgid "City"
+msgstr ""
+
+#. module: library
+#: model:ir.ui.view,arch_db:library.rental_view_form_id
+msgid "Confirm"
+msgstr ""
+
+#. module: library
+#: model:ir.model,name:library.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: library
+#: model:ir.ui.view,arch_db:library.customer_view_form_id
+msgid "Country"
+msgstr ""
+
+#. module: library
+#: model:ir.model.fields,field_description:library.field_library_payment_create_uid
+#: model:ir.model.fields,field_description:library.field_library_price_create_uid
+#: model:ir.model.fields,field_description:library.field_library_rental_create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: library
+#: model:ir.model.fields,field_description:library.field_library_payment_create_date
+#: model:ir.model.fields,field_description:library.field_library_price_create_date
+#: model:ir.model.fields,field_description:library.field_library_rental_create_date
+msgid "Created on"
+msgstr ""
+
+#. module: library
+#: model:ir.ui.view,arch_db:library.customer_view_form_id
+msgid "Current rentals"
+msgstr ""
+
+#. module: library
+#: model:ir.model.fields,field_description:library.field_library_payment_customer_id
+#: model:ir.model.fields,field_description:library.field_library_rental_customer_id
+msgid "Customer"
+msgstr ""
+
+#. module: library
+#: model:ir.actions.act_window,name:library.action_customer
+#: model:ir.ui.menu,name:library.menu_customer
+#: model:ir.ui.menu,name:library.menu_customer_top
+msgid "Customers"
+msgstr ""
+
+#. module: library
+#: model:ir.actions.client,name:library.dashboard
+#: model:ir.ui.menu,name:library.menu_dashboard
+msgid "Dashboard"
+msgstr ""
+
+#. module: library
+#: model:ir.model.fields,field_description:library.field_library_payment_date
+msgid "Date"
+msgstr ""
+
+#. module: library
+#: model:ir.model.fields,field_description:library.field_library_payment_display_name
+#: model:ir.model.fields,field_description:library.field_library_price_display_name
+#: model:ir.model.fields,field_description:library.field_library_rental_display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: library
+#: selection:library.rental,state:0
+msgid "Draft"
+msgstr ""
+
+#. module: library
+#: model:ir.model.fields,field_description:library.field_library_price_duration
+msgid "Duration in days"
+msgstr ""
+
+#. module: library
+#: model:ir.model.fields,field_description:library.field_product_product_edition_date
+msgid "Edition date"
+msgstr ""
+
+#. module: library
+#: model:product.product,name:library.book_got
+#: model:product.product,name:library.book_got_2
+#: model:product.template,name:library.book_got_2_product_template
+#: model:product.template,name:library.book_got_product_template
+msgid "Game of Thrones"
+msgstr ""
+
+#. module: library
+#: model:ir.model.fields,field_description:library.field_library_payment_id
+#: model:ir.model.fields,field_description:library.field_library_price_id
+#: model:ir.model.fields,field_description:library.field_library_rental_id
+msgid "ID"
+msgstr ""
+
+#. module: library
+#: model:ir.model.fields,field_description:library.field_product_product_isbn
+msgid "ISBN"
+msgstr ""
+
+#. module: library
+#: model:ir.model.fields,field_description:library.field_library_rental_is_late
+msgid "Is Late"
+msgstr ""
+
+#. module: library
+#: model:ir.model.fields,field_description:library.field_library_payment___last_update
+#: model:ir.model.fields,field_description:library.field_library_price___last_update
+#: model:ir.model.fields,field_description:library.field_library_rental___last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: library
+#: model:ir.model.fields,field_description:library.field_library_payment_write_uid
+#: model:ir.model.fields,field_description:library.field_library_price_write_uid
+#: model:ir.model.fields,field_description:library.field_library_rental_write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: library
+#: model:ir.model.fields,field_description:library.field_library_payment_write_date
+#: model:ir.model.fields,field_description:library.field_library_price_write_date
+#: model:ir.model.fields,field_description:library.field_library_rental_write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: library
+#: model:product.product,name:library.book_les_miserables
+#: model:product.template,name:library.book_les_miserables_product_template
+msgid "Les Misérables"
+msgstr ""
+
+#. module: library
+#: model:ir.ui.menu,name:library.menu_root
+msgid "Library"
+msgstr ""
+
+#. module: library
+#: model:ir.ui.view,arch_db:library.rental_view_form_id
+#: selection:library.rental,state:0
+#: selection:product.product,book_state:0
+msgid "Lost"
+msgstr ""
+
+#. module: library
+#. openerp-web
+#: code:addons/library/static/src/xml/dashboard.xml:18
+#: model:ir.actions.act_window,name:library.action_lost_books
+#, python-format
+msgid "Lost Books"
+msgstr ""
+
+#. module: library
+#: model:ir.ui.view,arch_db:library.customer_view_form_id
+msgid "Lost rentals"
+msgstr ""
+
+#. module: library
+#. openerp-web
+#: code:addons/library/static/src/xml/dashboard.xml:25
+#, python-format
+msgid "Money in this month:"
+msgstr ""
+
+#. module: library
+#. openerp-web
+#: code:addons/library/static/src/xml/dashboard.xml:28
+#, python-format
+msgid "Money lost due to lost books this month:"
+msgstr ""
+
+#. module: library
+#: model:ir.model.fields,field_description:library.field_library_price_name
+#: model:ir.ui.view,arch_db:library.author_view_form_id
+#: model:ir.ui.view,arch_db:library.book_view_form_id
+#: model:ir.ui.view,arch_db:library.customer_view_form_id
+msgid "Name"
+msgstr ""
+
+#. module: library
+#: model:ir.model.fields,field_description:library.field_res_partner_nationality_id
+#: model:ir.model.fields,field_description:library.field_res_users_nationality_id
+msgid "Nationality"
+msgstr ""
+
+#. module: library
+#: model:ir.model.fields,field_description:library.field_res_partner_qty_lost_book
+#: model:ir.model.fields,field_description:library.field_res_users_qty_lost_book
+msgid "Number of books lost"
+msgstr ""
+
+#. module: library
+#. openerp-web
+#: code:addons/library/static/src/xml/dashboard.xml:27
+#, python-format
+msgid "Number of books lost this month:"
+msgstr ""
+
+#. module: library
+#. openerp-web
+#: code:addons/library/static/src/xml/dashboard.xml:26
+#, python-format
+msgid "Number of rentals this month:"
+msgstr ""
+
+#. module: library
+#: model:ir.ui.view,arch_db:library.customer_view_form_id
+msgid "Old rentals"
+msgstr ""
+
+#. module: library
+#: selection:library.price,type:0
+msgid "Oneshot"
+msgstr ""
+
+#. module: library
+#: model:ir.actions.act_window,name:library.action_payment
+#: model:ir.model.fields,field_description:library.field_res_partner_payment_ids
+#: model:ir.model.fields,field_description:library.field_res_users_payment_ids
+#: model:ir.ui.menu,name:library.menu_payment
+msgid "Payments"
+msgstr ""
+
+#. module: library
+#: model:ir.model.fields,field_description:library.field_library_price_price
+msgid "Price"
+msgstr ""
+
+#. module: library
+#: model:ir.ui.menu,name:library.menu_price
+msgid "Prices"
+msgstr ""
+
+#. module: library
+#: model:ir.model,name:library.model_product_product
+msgid "Product"
+msgstr ""
+
+#. module: library
+#: model:ir.model.fields,field_description:library.field_product_product_publisher_id
+msgid "Publisher"
+msgstr ""
+
+#. module: library
+#: model:ir.model.fields,field_description:library.field_library_rental_rental_date
+msgid "Rental date"
+msgstr ""
+
+#. module: library
+#: model:ir.actions.act_window,name:library.action_price
+#: model:ir.actions.act_window,name:library.action_rental
+#: model:ir.model.fields,field_description:library.field_product_product_rental_ids
+#: model:ir.model.fields,field_description:library.field_res_partner_current_rental_ids
+#: model:ir.model.fields,field_description:library.field_res_partner_lost_rental_ids
+#: model:ir.model.fields,field_description:library.field_res_partner_old_rental_ids
+#: model:ir.model.fields,field_description:library.field_res_users_current_rental_ids
+#: model:ir.model.fields,field_description:library.field_res_users_lost_rental_ids
+#: model:ir.model.fields,field_description:library.field_res_users_old_rental_ids
+#: model:ir.ui.menu,name:library.menu_rental
+#: model:ir.ui.menu,name:library.menu_rental_top
+#: model:ir.ui.view,arch_db:library.book_view_form_id
+msgid "Rentals"
+msgstr ""
+
+#. module: library
+#: selection:library.rental,state:0
+#: selection:product.product,book_state:0
+msgid "Rented"
+msgstr ""
+
+#. module: library
+#: model:ir.actions.act_window,name:library.action_rented_books
+msgid "Rented Books"
+msgstr ""
+
+#. module: library
+#: model:ir.ui.view,arch_db:library.rental_view_form_id
+msgid "Return"
+msgstr ""
+
+#. module: library
+#: model:ir.model.fields,field_description:library.field_library_rental_return_date
+msgid "Return date"
+msgstr ""
+
+#. module: library
+#: selection:library.rental,state:0
+msgid "Returned"
+msgstr ""
+
+#. module: library
+#: model:ir.model.fields,field_description:library.field_library_rental_state
+msgid "State"
+msgstr ""
+
+#. module: library
+#: model:ir.ui.view,arch_db:library.customer_view_form_id
+msgid "Street 2..."
+msgstr ""
+
+#. module: library
+#: model:ir.ui.view,arch_db:library.customer_view_form_id
+msgid "Street..."
+msgstr ""
+
+#. module: library
+#: model:ir.model.fields,field_description:library.field_library_price_type
+msgid "Type"
+msgstr ""
+
+#. module: library
+#: model:ir.ui.view,arch_db:library.customer_view_form_id
+msgid "ZIP"
+msgstr ""
+
+#. module: library
+#: model:ir.model.fields,field_description:library.field_res_partner_publisher
+#: model:ir.model.fields,field_description:library.field_res_users_publisher
+msgid "is a Publisher"
+msgstr ""
+
+#. module: library
+#: model:ir.model.fields,field_description:library.field_product_product_book
+msgid "is a book"
+msgstr ""
+
+#. module: library
+#: model:ir.model.fields,field_description:library.field_res_partner_author
+#: model:ir.model.fields,field_description:library.field_res_users_author
+msgid "is an Author"
+msgstr ""
+
+#. module: library
+#: model:ir.model,name:library.model_library_payment
+msgid "library.payment"
+msgstr ""
+
+#. module: library
+#: model:ir.model,name:library.model_library_price
+msgid "library.price"
+msgstr ""
+
