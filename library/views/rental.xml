@@ -14,11 +14,13 @@
                         <field name="state" widget="statusbar" nolabel="1" statusbar_visible="draft,rented,returned,lost" clickable="True"/>
                     </header>
                     <sheet>
+                        <field name="amount_owed" widget="amount-due-widget"/>
                         <group>
                             <field name="customer_id" context="{'default_customer': True}"/>
                             <field name="book_id" context="{'default_book': True}"/>
                             <field name="rental_date"/>
                             <field name="return_date"/>
+                            <field name="is_late" widget="late-widget"/>
                         </group>
                     </sheet>
                 </form>
@@ -34,6 +36,7 @@
                     <field name="customer_id"/>
                     <field name="rental_date"/>
                     <field name="return_date"/>
+                    <field name="is_late" widget="late-widget" options="{'late_color': 'orange', 'not_late_color': 'gray'}"/>
                     <field name="state"/>
                  </tree>
             </field>
@@ -43,9 +46,10 @@
             <field name="name">rental.kanban.view</field>
             <field name="model">library.rental</field>
             <field name="arch" type="xml">
-                <kanban create="false" default_group_by="state">
+                <kanban create="false" default_group_by="state" js_class="library_kanban">
                   <field name="customer_id"/>
                   <field name="book_id"/>
+                  <field name="is_late" widget="late-widget" options="{'late_color': 'orange', 'not_late_color': 'gray'}"/>
                   <field name="state"/>
                   <templates>
                     <t t-name="kanban-box">

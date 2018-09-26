@@ -20,7 +20,7 @@
     'application': True,
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'product'],
+    'depends': ['base', 'product', 'base_geolocalize'],
 
     # always loaded
     'data': [

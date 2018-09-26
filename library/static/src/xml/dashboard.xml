@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates id="template" xml:space="preserve">
 
+<li t-name="LibrarySystrayItem" class="o_library_systray_item">
+    <input type="input" class="o_input"/>
+</li>
+
+<div t-name="LibraryWarning" class="alert" role="alert">
+    This customer owes <t t-esc="amount"/> euros. Ask him to pay right now!
+</div>
+
+<div t-name="AppSwitcherWarning" class="alert alert-warning" role="alert">
+    Do not forget about Monday promotion!
+</div>
+
 <div t-name="LibraryDashboard" class="o_library">
     <div class="o_statistics">
         <div>Money in this month: <t t-esc="widget.stats.money_in"/> €</div>
@@ -14,6 +26,24 @@
 <div t-name="LibraryDashboard.Buttons">
     <button type="button" class="btn btn-primary o_lost_books">Lost Books</button>
     <button type="button" class="btn btn-primary o_bad_customers">Bad Customers</button>
+</div>
+
+<t t-name="LibraryCustomerButtons">
+    <button type="button" class="btn btn-primary o_geolocate">Geolocate</button>
+    <button type="button" class="btn btn-primary o_pay_amount_owed">Pay Amount Owed</button>
+</t>
+
+<div t-name="CustomerList" class="o_library_list">
+    <input class="o_search_input"></input>
+    <table class="table table-striped">
+        <tbody>
+            <t t-foreach="customers" t-as="customer">
+                <tr t-att-data-id="customer.id" t-attf-class="o_customer #{customer.id === activeCustomerID ? ' o_active' : ''}">
+                    <td><t t-esc="customer.display_name"/></td>
+                </tr>
+            </t>
+        </tbody>
+    </table>
 </div>
 
 </templates>
