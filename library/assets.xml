@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="assets_backend" name="library assets backend" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/library/static/src/js/chart_widget.js"></script>
+            <script type="text/javascript" src="/library/static/src/js/client_action.js"></script>
+            <script type="text/javascript" src="/library/static/src/js/fields.js"></script>
+            <script type="text/javascript" src="/library/static/src/js/form_view.js"></script>
+            <script type="text/javascript" src="/library/static/src/js/systray.js"></script>
+            <script type="text/javascript" src="/library/static/src/js/appswitcher.js"></script>
+            <script type="text/javascript" src="/library/static/src/js/kanban_extended.js"></script>
+            <script type="text/javascript" src="/library/static/src/js/tour.js"></script>
+        </xpath>
+
+        <xpath expr="//link[last()]" position="after">
+            <link rel="stylesheet" type="text/less" href="/library/static/src/less/library.less"/>
+        </xpath>
+    </template>
+
+    <template id="qunit_suite" name="library_tests" inherit_id="web.qunit_suite">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/library/static/test/library_tests.js"></script>
+        </xpath>
+    </template>
+
+</odoo>
