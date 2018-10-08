@@ -3,23 +3,30 @@ from datetime import timedelta
 from odoo import models, fields, api, exceptions, _
 from odoo.exceptions import UserError
 
+
 class Course(models.Model):
     _name = 'openacademy.course'
 
+    _inherit = ['mail.thread']
+
     name = fields.Char()
     description = fields.Text()
-    responsible_id = fields.Many2one('res.users', ondelete='set null', string="Responsible", index=True)
-    session_ids = fields.One2many('openacademy.session', 'course_id', string="Sessions")
-    level = fields.Selection([(1, 'Easy'), (2, 'Medium'), (3, 'Hard')], string="Difficulty Level")
+    responsible_id = fields.Many2one(
+        'res.users', ondelete='set null', string="Responsible", index=True)
+    session_ids = fields.One2many(
+        'openacademy.session', 'course_id', string="Sessions")
+    level = fields.Selection(
+        [(1, 'Easy'), (2, 'Medium'), (3, 'Hard')], string="Difficulty Level")
     color = fields.Integer()
-    session_count = fields.Integer("Session Count", compute="_compute_session_count")
+    session_count = fields.Integer(
+        "Session Count", compute="_compute_session_count")
 
     _sql_constraints = [
-       ('name_description_check', 'CHECK(name != description)',
-        _("The title of the course should not be the description")),
+        ('name_description_check', 'CHECK(name != description)',
+         _("The title of the course should not be the description")),
 
-       ('name_unique', 'UNIQUE(name)',
-        _("The course title must be unique")),
+        ('name_unique', 'UNIQUE(name)',
+            _("The course title must be unique")),
     ]
 
     @api.one
@@ -36,20 +43,50 @@ class Course(models.Model):
         default['name'] = new_name
         return super(Course, self).copy(default)
 
+    def _add_follower(self, vals):
+        if vals.get('responsible_id'):
+            responsible = self.env['res.users'].browse(
+                vals.get('responsible_id'))
+            self.message_subscribe(partner_ids=responsible.partner_id.ids)
+
+    @api.multi
+    def write(self, vals):
+        self._add_follower(vals)
+        return super(Course, self).write(vals)
+
+    @api.model
+    def create(self, vals):
+        res = super(Course, self).create(vals)
+        res._add_follower(vals)
+        return res
+
     @api.one
     @api.depends('session_ids')
     def _compute_session_count(self):
         self.session_count = len(self.session_ids)
 
+    @api.multi
+    def message_get_suggested_recipients(self):
+        self.ensure_one()
+        result = super(Course, self).message_get_suggested_recipients()
+        for session in self.session_ids:
+            result[self.id].append((session.instructor_id.id,
+                                    '%s <%s>' % (session.instructor_id.name, session.instructor_id.email),
+                                    'Session Instructor'))
+        return result
+
+
 class Session(models.Model):
     _name = 'openacademy.session'
+
+    _inherit = ['mail.thread', 'mail.alias.mixin']
 
     _order = 'name'
 
     name = fields.Char(required=True)
-    start_date = fields.Date(default=lambda self : fields.Date.today())
+    start_date = fields.Date(default=lambda self: fields.Date.today())
     #end_date = fields.Date(default=lambda self : fields.Date.today())
-    end_date = fields.Date(string='End date', store=True, compute='_get_end_date', inverse='_set_end_date')
+    end_date = fields.Date(string='End date', store=True,compute='_get_end_date', inverse='_set_end_date')
     active = fields.Boolean(default=True)
     duration = fields.Float(digits=(6, 2), help="Duration in days", default=1)
     seats = fields.Integer(string="Number of seats")
@@ -65,18 +102,18 @@ class Session(models.Model):
     attendees_count = fields.Integer(string="Attendees count", compute='_get_attendees_count', store=True)
     color = fields.Integer()
     state = fields.Selection([
-                    ('draft', "Draft"),
-                    ('confirmed', "Confirmed"),
-                    ('done', "Done"),
-                    ], default='draft')
+        ('draft', "Draft"),
+        ('confirmed', "Confirmed"),
+        ('done', "Done"),
+    ], default='draft')
 
     def _warning(self, title, message):
-            return {
-              'warning': {
+        return {
+            'warning': {
                 'title': title,
                 'message': message,
-              },
-            }
+            },
+        }
 
     @api.one
     @api.depends('seats', 'attendee_ids')
@@ -138,25 +175,38 @@ class Session(models.Model):
     def action_done(self):
         self.state = 'done'
 
+
+    def get_alias_model_name(self, vals):
+        return 'openacademy.attendee'
+
+    def get_alias_values(self):
+        values = super(Session, self).get_alias_values()
+        values['alias_defaults'] = {'course_id': self.course_id.id,
+                                    'session_id': self.id}
+        return values
+
 class Attendee(models.Model):
     _name = 'openacademy.attendee'
 
-    _rec_name = 'partner_id'
+    _rec_name = 'comment'
+    _inherit = ['mail.thread']
+
+    comment = fields.Char("Comment", help="Subject of the mail send")
 
     partner_id = fields.Many2one('res.partner', 'Attendee Name', domain=[('is_company', '=', False)])
     session_id = fields.Many2one('openacademy.session', 'Session')
     course_id = fields.Many2one('openacademy.course', string="Course")
 
     state = fields.Selection([
-                    ('draft', "Draft"),
-                    ('confirmed', "Confirmed"),
-                    ('done', "Attended"),
-                    ('cancel', "Not Attended"),
-                    ], default='draft')
+        ('draft', "Draft"),
+        ('confirmed', "Confirmed"),
+        ('done', "Attended"),
+        ('cancel', "Not Attended"),
+    ], default='draft')
 
     _sql_constraints = [
-       ('subscribe_once_per_session', 'UNIQUE(partner_id, session_id)',
-        _("You can only subscribe a partner once to the same session.")),
+        ('subscribe_once_per_session', 'UNIQUE(partner_id, session_id)',
+         _("You can only subscribe a partner once to the same session.")),
     ]
 
     @api.one
@@ -166,6 +216,7 @@ class Attendee(models.Model):
     @api.one
     def action_confirm(self):
         self.state = 'confirmed'
+        self._send_confirmation_email()
 
     @api.one
     def action_done(self):
@@ -174,3 +225,13 @@ class Attendee(models.Model):
     @api.one
     def action_cancel(self):
         self.state = 'cancel'
+
+    @api.model
+    def message_new(self, msg, custom_values=None):
+        custom_values = dict(custom_values) or {}
+        custom_values['partner_id'] = msg.get('author_id')
+        return super(Attendee, self).message_new(msg, custom_values=custom_values)
+
+    def _send_confirmation_email(self):
+        template = self.env.ref('openacademy.email_template_confirmation')
+        self.message_post_with_template(template.id)

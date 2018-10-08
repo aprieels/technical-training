@@ -6,7 +6,7 @@
         Course management""",
 
     'description': """
-        Open Academy allow you to manager you course, session, teacher and attendee. 
+        Open Academy allow you to manager you course, session, teacher and attendee.
     """,
 
     'author': "Odoo",
@@ -18,7 +18,7 @@
     'category': 'Academy',
     'version': '0.1',
 
-    'depends': ['base'],
+    'depends': ['base', 'mail'],
 
     # always loaded
     'data': [
@@ -32,6 +32,7 @@
         'views/attendee.xml',
         'wizard/add_attendee_view.xml',
         'data/partner.xml',
+        'data/email_template.xml',
     ],
     # only loaded in demonstration mode
     'demo': [

@@ -20,30 +20,34 @@
       <field name="arch" type="xml">
         <form>
           <sheet>
-              <group>
-                  <field name="name"/>
-                  <field name="responsible_id" />
-                  <field name="level" />
-              </group>
-              <notebook>
-                  <page string="Description" name="desc" >
-                      <field name="description"/>
-                  </page>
-                  <page string="Sessions" name="sessions" >
-                      <field name="session_ids">
-                        <tree editable="bottom">
-                            <field name="name"/>
-                            <field name="instructor_id" />
-                            <field name="start_date" />
-                            <field name="duration" />
-                            <field name="percentage_per_day" />
-                            <field name="seats" />
-                        </tree>
-                      </field>
-                  </page>
-              </notebook>
+            <group>
+              <field name="name"/>
+              <field name="responsible_id" />
+              <field name="level" />
+            </group>
+            <notebook>
+              <page string="Description" name="desc">
+                <field name="description"/>
+              </page>
+              <page string="Sessions" name="sessions">
+                <field name="session_ids">
+                  <tree editable="bottom">
+                    <field name="name"/>
+                    <field name="instructor_id" />
+                    <field name="start_date" />
+                    <field name="duration" />
+                    <field name="percentage_per_day" />
+                    <field name="seats" />
+                  </tree>
+                </field>
+              </page>
+            </notebook>
           </sheet>
-         </form>
+          <div class="oe_chatter">
+            <field name="message_follower_ids" widget="mail_followers"/>
+            <field name="message_ids" widget="mail_thread"/>
+          </div>
+        </form>
       </field>
     </record>
 
@@ -52,14 +56,12 @@
       <field name="model">openacademy.course</field>
       <field name="arch" type="xml">
         <search>
-            <field name="name"/>
-            <field name="responsible_id" />
-            <field name="description"/>
-            <filter name="my_courses" string="My Courses"
-                    domain="[('responsible_id', '=', uid)]"/>
-            <filter name="by_responsible" string="Responsible"
-                    context="{'group_by': 'responsible_id'}"/>
-         </search>
+          <field name="name"/>
+          <field name="responsible_id" />
+          <field name="description"/>
+          <filter name="my_courses" string="My Courses" domain="[('responsible_id', '=', uid)]"/>
+          <filter name="by_responsible" string="Responsible" context="{'group_by': 'responsible_id'}"/>
+        </search>
       </field>
     </record>
 
@@ -77,7 +79,6 @@
     <!-- menu categories -->
     <menuitem name="Courses" id="menu_course_top" parent="menu_root"/>
     <!-- actions -->
-    <menuitem name="Courses" id="menu_course" parent="menu_course_top"
-              action="action_course"/>
+    <menuitem name="Courses" id="menu_course" parent="menu_course_top" action="action_course"/>
   </data>
 </odoo>
