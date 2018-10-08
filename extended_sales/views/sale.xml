@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="extended_sales_view">
+            <field name="name">extended_sales_form</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='state']" position="replace">
+                    <field name='state' widget="statusbar" statusbar_visible="draft,sent,confirmation,sale"/>
+                </xpath>
+                <xpath expr="//header" position="inside">
+                    <button name="action_second_confirm" states="confirmation" string="Second Confirmation" class="btn-primary" type="object" />
+                    <button name="action_cancel" states="confirmation" type="object" string="Cancel"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>
