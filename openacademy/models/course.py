@@ -9,18 +9,22 @@ class Course(models.Model):
 
     name = fields.Char(name='Title', required=True)
     description = fields.Text()
-    responsible_id = fields.Many2one('res.users', ondelete='set null', string="Responsible", index=True)
-    session_ids = fields.One2many('openacademy.session', 'course_id', string="Sessions")
-    level = fields.Selection([(1, 'Easy'), (2, 'Medium'), (3, 'Hard')], string="Difficulty Level")
-    session_count = fields.Integer("Session Count", compute="_compute_session_count")
+    responsible_id = fields.Many2one(
+        'res.users', ondelete='set null', string="Responsible", index=True)
+    session_ids = fields.One2many(
+        'openacademy.session', 'course_id', string="Sessions")
+    level = fields.Selection(
+        [(1, 'Easy'), (2, 'Medium'), (3, 'Hard')], string="Difficulty Level")
+    session_count = fields.Integer(
+        "Session Count", compute="_compute_session_count")
     theme_ids = fields.Many2many('openacademy.theme', string='Themes')
 
     _sql_constraints = [
-       ('name_description_check', 'CHECK(name != description)',
-        "The title of the course should not be the description"),
+        ('name_description_check', 'CHECK(name != description)',
+         "The title of the course should not be the description"),
 
-       ('name_unique', 'UNIQUE(name)',
-        "The course title must be unique"),
+        ('name_unique', 'UNIQUE(name)',
+            "The course title must be unique"),
     ]
 
     @api.multi
@@ -60,26 +64,32 @@ class Session(models.Model):
     _order = 'name'
 
     name = fields.Char(required=True)
-    start_date = fields.Date(default=lambda self : fields.Date.today())
+    start_date = fields.Date(default=lambda self: fields.Date.today())
     #end_date = fields.Date(default=lambda self : fields.Date.today())
-    end_date = fields.Date(string='End date', store=True, compute='_get_end_date', inverse='_set_end_date')
+    end_date = fields.Date(string='End date', store=True,
+                           compute='_get_end_date', inverse='_set_end_date')
     active = fields.Boolean(default=True)
     duration = fields.Float(digits=(6, 2), help="Duration in days", default=1)
     seats = fields.Integer(string="Number of seats")
-    instructor_id = fields.Many2one('res.partner', string="Instructor") #No ondelete = set null
-    course_id = fields.Many2one('openacademy.course', ondelete='cascade', string="Course", required=True)
-    attendee_ids = fields.Many2many('res.partner', string="Attendees", domain=[('is_company', '=', False)])
+    instructor_id = fields.Many2one(
+        'res.partner', string="Instructor")  # No ondelete = set null
+    course_id = fields.Many2one(
+        'openacademy.course', ondelete='cascade', string="Course", required=True)
+    attendee_ids = fields.Many2many('res.partner', string="Attendees", domain=[
+                                    ('is_company', '=', False)])
     taken_seats = fields.Float(string="Taken seats", compute='_taken_seats')
     level = fields.Selection(related='course_id.level', readonly=True)
-    responsible_id = fields.Many2one(related='course_id.responsible_id', readonly=True, store=True)
+    responsible_id = fields.Many2one(
+        related='course_id.responsible_id', readonly=True, store=True)
 
     percentage_per_day = fields.Integer("%", default=100)
-    attendees_count = fields.Integer(string="Attendees count", compute='_get_attendees_count', store=True)
+    attendees_count = fields.Integer(
+        string="Attendees count", compute='_get_attendees_count', store=True)
     state = fields.Selection([
-                    ('draft', "Draft"),
-                    ('confirmed', "Confirmed"),
-                    ('done', "Done"),
-                    ], default='draft')
+        ('draft', "Draft"),
+        ('confirmed', "Confirmed"),
+        ('done', "Done"),
+    ], default='draft')
 
     attendee_feedback_ids = fields.One2many(
         comodel_name='openacademy.feedback',
@@ -99,7 +109,8 @@ class Session(models.Model):
             if not session.seats:
                 session.taken_seats = 0.0
             else:
-                session.taken_seats = 100.0 * len(session.attendee_ids) / session.seats
+                session.taken_seats = 100.0 * \
+                    len(session.attendee_ids) / session.seats
 
     @api.depends('attendee_ids')
     def _get_attendees_count(self):
@@ -117,7 +128,8 @@ class Session(models.Model):
     def _check_instructor_not_in_attendees(self):
         for session in self:
             if session.instructor_id and session.instructor_id in session.attendee_ids:
-                raise ValidationError("A session's instructor can't be an attendee")
+                raise ValidationError(
+                    "A session's instructor can't be an attendee")
 
     @api.depends('start_date', 'duration')
     def _get_end_date(self):
@@ -144,19 +156,22 @@ class Session(models.Model):
     def action_draft(self):
         for rec in self:
             rec.state = 'draft'
-            rec.message_post(body="Session %s of the course %s reset to draft" % (rec.name, rec.course_id.name))
+            rec.message_post(body="Session %s of the course %s reset to draft" % (
+                rec.name, rec.course_id.name))
 
     @api.multi
     def action_confirm(self):
         for rec in self:
             rec.state = 'confirmed'
-            rec.message_post(body="Session %s of the course %s confirmed" % (rec.name, rec.course_id.name))
+            rec.message_post(body="Session %s of the course %s confirmed" % (
+                rec.name, rec.course_id.name))
 
     @api.multi
     def action_done(self):
         for rec in self:
             rec.state = 'done'
-            rec.message_post(body="Session %s of the course %s done" % (rec.name, rec.course_id.name))
+            rec.message_post(body="Session %s of the course %s done" %
+                             (rec.name, rec.course_id.name))
 
     def _auto_transition(self):
         for rec in self:
@@ -180,20 +195,18 @@ class Session(models.Model):
             res.message_subscribe([vals['instructor_id']])
         return res
 
-    # Used only on 2nd extra task
-    def open_attendees(self):
-        pass
-
     # Used only on 3th extra task
     def action_set_no_of_seats(self, value):
-        pass
+        return self.write({'seats': value})
 
 
 class Feedback(models.Model):
     _name = 'openacademy.feedback'
 
-    session_id = fields.Many2one('openacademy.session', string="Session", required=True)
-    attendee_id = fields.Many2one('res.partner', string='Attendee', required=True)
+    session_id = fields.Many2one(
+        'openacademy.session', string="Session", required=True)
+    attendee_id = fields.Many2one(
+        'res.partner', string='Attendee', required=True)
     session_feedback = fields.Text(string='Feedback')
 
     _sql_constraints = [(
